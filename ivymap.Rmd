@@ -1,0 +1,41 @@
+---
+title: "Leaflet Interactive Map"
+author: "Pratyusa Mukherjee"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+```
+
+## `r format(Sys.Date(), "%B %d, %Y")`
+
+## Map of Ivy League Universities and Associated Cost
+
+```{r}
+suppressMessages(library(leaflet))
+
+ivyicon <- makeIcon(
+  iconUrl ="ivl.jpg", iconWidth=45*215/230, iconHeight = 35, 
+  iconAnchorX = 35*215/230/2, iconAnchorY = 26)
+ivySites <- c(
+"<a href='http://www.harvard.edu/'>Harvard University</a><BR> Cost: $67K",
+"<a href='http://www.yale.edu'>Yale University</a><BR> Cost: $68K",
+"<a href='http://www.brown.edu/'>Brown University</a><BR> Cost: $65K",
+"<a href='http://www.cornell.edu/'>Cornell University</a><BR> Cost: $68K",
+"<a href='http://www.columbia.edu/'>Columbia University</a><BR> Cost: $72K",
+"<a href='http://www.dartmouth.edu/'>Dartmouth College</a><BR> Cost: $67K",
+"<a href='http://www.princeton.edu/'>Princeton University</a><BR> Cost: $64K",
+"<a href='http://www.upenn.edu/'>University of Pennsylvania</a><BR> Cost: $69K"
+)
+lativy <- c(42.3770, 41.3163, 41.8268, 42.4534, 40.8075, 43.7044, 40.3573,39.9522)
+lonivy <- c(-71.1167, -72.9223, -71.4025, -76.4735, -73.9626, -72.2887, -74.6672, -75.1932
+)
+
+ivydf <- data.frame(latitude = lativy, longitude = lonivy)
+ivydf %>%
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(icon = ivyicon, popup = ivySites)
+``` 
